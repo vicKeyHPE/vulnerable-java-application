@@ -1,0 +1,46 @@
+name: ThreatSpec Analysis
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  threatspec:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ThreatSpec
+        run: |
+          python -m pip install --upgrade pip
+          pip install threatspec
+
+      - name: init ThreatSpec
+        run: |
+          threatspec init
+
+      - name: Run ThreatSpec
+        run: |
+          threatspec run 
+
+      - name: Generate ThreatSpec Report
+        run: |
+          mkdir -p reports
+          threatspec report --format html --output reports/threatspec.html
+          threatspec report --format json --output reports/threatspec.json
+
+      - name: Upload Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: threatspec-report
+          path: reports/
