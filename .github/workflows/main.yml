@@ -25,10 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install threatspec
 
-      - name: init ThreatSpec
-        run: |
-          threatspec init
-
       - name: Run ThreatSpec
         run: |
           threatspec run 
