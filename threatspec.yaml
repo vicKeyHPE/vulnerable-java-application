@@ -1,0 +1,10 @@
+project:
+  name: "vulnerable-java-application (DataDog)"
+  description: "ThreatSpec annotations for DataDog vulnerable-java-application"
+
+paths:
+  - "src/main/java"
+  - "src"
+  - "src/main/resources"
+  - "src/main/webapp"
+
